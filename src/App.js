@@ -4,11 +4,13 @@ import SidePanel from "./components/SidePanel";
 import MainPanel from "./components/MainPanel";
 import UploadStatus from "./components/UploadStatus";
 import { AppStateProvider } from './context/AppStateContext';
+import { JobProvider } from "./context/JobContext";
 
 const App = () => {
 
   return (
     <AppStateProvider>
+    <JobProvider>
     <div className="container">
       <SidePanel />
       <div className="working-area">
@@ -16,6 +18,7 @@ const App = () => {
       <MainPanel/>
       </div>
     </div>
+    </JobProvider>
     </AppStateProvider>
   );
 };

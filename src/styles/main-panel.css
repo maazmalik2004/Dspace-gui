@@ -1,5 +1,6 @@
 .main-panel {
     padding: 1rem;
+    min-width: 30rem;
 }
 
 .go-back-and-path-container { 
@@ -10,7 +11,7 @@
 
     margin-bottom: 2rem;
 
-    background-color: #FFE4DB;
+    background-color:#E1F8DD;
     padding: 1em;
 }
 
@@ -21,6 +22,8 @@
 }
 
 .item-cards-container {
+    height: 80vh;
+    
     display: flex;
     flex-direction: row;
     align-items: flex-start;
@@ -28,8 +31,7 @@
     flex-wrap: wrap;
     gap: 1rem;
 
-    height: 100%;
-    overflow: scroll;
+    overflow:scroll;
 }
 
 .item-cards-container::-webkit-scrollbar {
@@ -39,50 +41,22 @@
 .back-button {
     background-color: white;
     padding: 1em;
-    border: 0.2em solid black;
+    border: 0.1em solid black;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s,border-radius 0.4s;
+    border-radius: 0%;
 }
 
 .back-button:hover {
-    background-color: #FFFD91;
-    border-color: #1C1909;
+    border-radius: 80%;
+
 }
 
 .back-button:disabled {
     background-color: #d3d3d3;
     cursor: not-allowed;
 }
-
-.download-button {
-    background-color: white;
-    padding: 1em;
-    border: 0.2em solid black;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-}
-
-.download-button:hover {
-    background-color: #A3E5C4;
-    border-color: #0A4028;
-}
-
-.delete-button {
-    background-color: white;
-    padding: 1em;
-    border: 0.2em solid black;
-    text-align: center;
-    cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
-  }
-  
-  .delete-button:hover {
-    background-color: #F16B6C;
-    border-color: #840926;
-    color:white;
-  }
 
   .loading-bar {
     position: fixed;

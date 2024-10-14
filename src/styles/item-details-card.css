@@ -1,0 +1,60 @@
+.item-details-card{
+    border: 0.2em solid black;
+    padding: 1rem;
+
+    display:flex;
+    align-items: stretch;
+    flex-direction: column;
+    justify-content: flex-start;
+
+    word-wrap: break-word;
+    overflow-wrap:break-word;
+    white-space: normal;
+
+    p{
+        margin-top: 0.2rem;
+    }
+}
+
+.icon{
+    align-self: center;
+}
+
+.button-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content:space-between;
+    gap:1rem;
+}
+
+.side-panel-download-button {
+    flex-grow: 1;
+    background-color: white;
+    padding: 1em;
+    border: 0.2em solid black;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+}
+
+.side-panel-download-button:hover {
+    background-color: #A3E5C4;
+    border-color: #0A4028;
+}
+
+.side-panel-delete-button {
+    flex-grow: 1;
+    background-color: white;
+    padding: 1em;
+    border: 0.2em solid black;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  
+  .side-panel-delete-button:hover {
+    background-color: #F16B6C;
+    border-color: #840926;
+    color:white;
+  }
