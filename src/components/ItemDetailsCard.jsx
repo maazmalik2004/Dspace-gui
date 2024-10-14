@@ -12,15 +12,25 @@ const formatFileSize = (size) => {
 };
 
 const getFileExtension = (name) => {
-    const parts = name.split(".");
-    if (parts.length > 1 && parts[0] !== "") {
-        return parts.pop();
-    }
-    return "";
+  const parts = name.split(".");
+  if (parts.length > 1 && parts[0] !== "") {
+    return parts.pop();
+  }
+  return "";
+};
+
+const DetailRow = ({ label, value, index }) => {
+  const backgroundColor = index % 2 === 0 ? "#f0f0f0" : "white"; // Gray for even rows
+
+  return (
+    <div style={{ backgroundColor, padding: "5px" }}>
+      <strong>{label}</strong> {value}
+    </div>
+  );
 };
 
 const ItemDetailsCard = ({ item, onDelete, onDownload }) => {
-  const { name, type, size, path, extension } = item;
+  const { name, type, size, path } = item;
 
   return (
     <div className="item-details-card">
@@ -32,13 +42,13 @@ const ItemDetailsCard = ({ item, onDelete, onDownload }) => {
         />
       </div>
 
-      <p><strong>Name </strong>{name}</p>
-      <p><strong>Type </strong>{type === "file"?"file":"directory"}</p>
-      <p><strong>Path </strong>{path}</p>
+      <DetailRow label="Name" value={name} index={0} />
+      <DetailRow label="Type" value={type === "file" ? "file" : "directory"} index={1} />
+      <DetailRow label="Path" value={path} index={2} />
       {type === "file" && (
         <>
-          <p><strong>Extension </strong>{getFileExtension(name)}</p>
-          <p><strong>Size </strong> {formatFileSize(size)}</p>
+          <DetailRow label="Extension" value={getFileExtension(name)} index={3} />
+          <DetailRow label="Size" value={formatFileSize(size)} index={4} />
         </>
       )}
 
