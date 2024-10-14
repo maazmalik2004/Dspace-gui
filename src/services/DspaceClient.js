@@ -8,12 +8,31 @@ class DspaceClient {
         this.#serverBaseUrl = "http://localhost:5000";
     }
 
+    async upload(files, baseRemotePath) {
+        try {
+            const prefix = 'root';
+            if (!baseRemotePath.startsWith(prefix)) {
+                baseRemotePath = prefix + baseRemotePath;
+            }
+
+            for (const file of files) {
+                if (file.type) {
+                    const fileRemotePath = baseRemotePath+"\\"+file.webkitRelativePath.replace(/\//g, '\\');
+                    console.log(fileRemotePath);
+                    await this.uploadFile(file, fileRemotePath);
+                } else {
+                    console.error("Invalid file type", file);
+                }
+            }
+        } catch (error) {
+            this.#logError("error in upload()",error);
+        }
+    }
+
     async uploadFile(file, remotePath) {
         try {
-            console.log("Uploading file:", file);
-            console.log("Remote path:", remotePath);
-
             const form = new FormData();
+            
             const directoryStructure = {
                 id: uuid(),
                 name: file.name,
@@ -32,10 +51,9 @@ class DspaceClient {
                 throw new Error("Failed to reach server");
             }
 
-            console.log(`Resource uploaded successfully: ${directoryStructure.name}`, response.data);
             return response.data;
         } catch (error) {
-            this.#logError(error, "uploadFile");
+            this.#logError("error in uploadFile()",error);
         }
     }
 
@@ -106,5 +124,4 @@ class DspaceClient {
 }
 
 const dspaceClient = new DspaceClient();
-
 export default dspaceClient;

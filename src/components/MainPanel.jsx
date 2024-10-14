@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import "../styles/main-panel.css";
 import ItemCard from "./ItemCard";
 import { AppStateContext } from "../context/AppStateContext";
+import { JobContext } from "../context/JobContext";
 import dspaceClient from "../services/DspaceClient";
 import StatusPanel from "./StatusPanel";
 
@@ -18,6 +19,8 @@ const MainPanel = () => {
     historyStack, 
     setHistoryStack
   } = useContext(AppStateContext);
+
+  const { jobs } = useContext(JobContext);
 
   const [files, setFiles] = useState([]);
 
@@ -69,19 +72,14 @@ const MainPanel = () => {
 
   return (
     <div className="main-panel">
-    <StatusPanel />
-      {isLoading && (
-        <div className="loading-bar">
-          <div className="loading-indicator"></div>
-        </div>
-      )}
+    {jobs.length > 0 && <StatusPanel />}
       <div className="go-back-and-path-container">
         <button
           onClick={handleGoBack}
           disabled={historyStack.length === 0}
           className="back-button"
         >
-        {"<"}
+        <strong>{"<"}</strong>
         </button>
         <div className="path">
           {currentPath && currentPath.includes("\\") ? (

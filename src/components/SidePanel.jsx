@@ -1,11 +1,14 @@
 import React, { useContext, useEffect, useState } from "react";
-import "../styles/side-panel.css";
-import dspaceClient from "../services/DspaceClient";
-import { AppStateContext } from "../context/AppStateContext";
-import { JobContext } from "../context/JobContext";
 import ItemDetailsCard from "./ItemDetailsCard";
 
-const SidePanel = () => {
+import { AppStateContext } from "../context/AppStateContext";
+import { JobContext } from "../context/JobContext";
+
+import dspaceClient from "../services/DspaceClient";
+
+import "../styles/side-panel.css";
+
+function SidePanel() {
   const {
     userDirectory,
     setUserDirectory,
@@ -15,14 +18,15 @@ const SidePanel = () => {
     setCurrentPath,
     historyStack,
     setHistoryStack,
+    isLoading,
+    setIsLoading,
   } = useContext(AppStateContext);
 
-  const { addJob, updateJob, jobs } = useContext(JobContext); // Jobs context
+  const { addJob, updateJob, jobs } = useContext(JobContext);
 
   const [currentRecord, setCurrentRecord] = useState(null);
 
-  // Determine if any job is still in progress
-  const isLoading = jobs.some((job) => job.status === "in progress");
+  setIsLoading(jobs.some((job) => job.status === "in progress"));
 
   useEffect(() => {
     if (userDirectory && currentId) {
@@ -34,18 +38,20 @@ const SidePanel = () => {
     }
   }, [userDirectory, currentId]);
 
+  //we will load the user directory the first time the component mounts
   useEffect(() => {
     const fetchUserDirectory = async () => {
       try {
         const response = await dspaceClient.getUserDirectory();
         setUserDirectory(response.userDirectory);
       } catch (error) {
+        console.log(error);
         window.alert("Failed to fetch user directory");
       }
     };
 
     fetchUserDirectory();
-  }, [setUserDirectory]);
+  }, []);
 
   const searchUserDirectory = (directory, key, value) => {
     const queue = [directory];
@@ -67,8 +73,6 @@ const SidePanel = () => {
 
   const handleFileUpload = async (event) => {
     const file = event.target.files[0];
-    const jobId = Date.now(); // Unique ID for the job
-
     if (!file) {
       return window.alert("Please select a file to upload.");
     }
@@ -80,18 +84,62 @@ const SidePanel = () => {
 
     if (foundRecord.type === "directory") {
       const remotePath = `${foundRecord.path}\\${file.name}`;
-      
-      // Add job to track the upload
-      addJob({ id: jobId, type: "upload", status: "in progress", filename: file.name });
-      
+
+      const jobId = Date.now();
+      addJob({
+        id: jobId,
+        type: "upload",
+        status: "in progress",
+        itemname: file.name,
+      });
+
       try {
         await dspaceClient.uploadFile(file, remotePath);
         const response = await dspaceClient.getUserDirectory();
         setUserDirectory(response.userDirectory);
-        updateJob(jobId, { status: "completed" }); // Update job as completed
+        updateJob(jobId, { status: "completed" });
       } catch (error) {
         window.alert("File upload failed.");
-        updateJob(jobId, { status: "failed" }); // Update job as failed
+        updateJob(jobId, { status: "failed" });
+      } finally {
+        event.target.value = "";
+      }
+    } else {
+      window.alert("Cannot upload at the current location.");
+    }
+  };
+
+  const handleFolderUpload = async (event) => {
+    const files = event.target.files;
+
+    if (files.length === 0) {
+      return window.alert("Please select folder to upload.");
+    }
+
+    const foundRecord = searchUserDirectory(userDirectory, "id", currentId);
+    if (!foundRecord) {
+      return window.alert("Target destination not found.");
+    }
+
+    if (foundRecord.type === "directory") {
+      const folderName = files[0].webkitRelativePath.split("/")[0];
+
+      const jobId = Date.now();
+      addJob({
+        id: jobId,
+        type: "upload",
+        status: "in progress",
+        itemname: folderName,
+      });
+
+      try {
+        await dspaceClient.upload(Array.from(files), currentPath);
+        const response = await dspaceClient.getUserDirectory();
+        setUserDirectory(response.userDirectory);
+        updateJob(jobId, { status: "completed" });
+      } catch (error) {
+        window.alert("Folder upload failed.");
+        updateJob(jobId, { status: "failed" });
       } finally {
         event.target.value = "";
       }
@@ -101,10 +149,15 @@ const SidePanel = () => {
   };
 
   const handleDelete = async () => {
-    const jobId = Date.now(); // Unique ID for delete job
     const parentId = historyStack[historyStack.length - 1];
 
-    addJob({ id: jobId, type: "delete", status: "in progress", filename: currentId });
+    const jobId = Date.now();
+    addJob({
+      id: jobId,
+      type: "delete",
+      status: "in progress",
+      itemname: currentRecord.name,
+    });
 
     try {
       await dspaceClient.delete(currentId);
@@ -130,27 +183,25 @@ const SidePanel = () => {
   };
 
   const handleDownload = async () => {
-    const jobId = Date.now(); // Unique ID for download job
-
-    addJob({ id: jobId, type: "download", status: "in progress", filename: currentId });
+    const jobId = Date.now();
+    addJob({
+      id: jobId,
+      type: "download",
+      status: "in progress",
+      itemname: currentRecord.name,
+    });
 
     try {
       await dspaceClient.retrieve(currentId);
       updateJob(jobId, { status: "completed" });
     } catch (error) {
-      window.alert("Failed to fetch file");
+      window.alert("Failed to fetch item");
       updateJob(jobId, { status: "failed" });
     }
   };
 
   return (
     <div className="side-panel">
-      {isLoading && (
-        <div className="loading-bar">
-          <div className="loading-indicator"></div>
-        </div>
-      )}
-
       <div className="logo-container">
         <h1>ᗡ:\\space</h1>
       </div>
@@ -165,6 +216,19 @@ const SidePanel = () => {
         onChange={handleFileUpload}
       />
 
+      <label htmlFor="folder-upload" className="upload-button">
+        Upload Folder
+      </label>
+      <input
+        type="file"
+        id="folder-upload"
+        webkitdirectory="true"
+        directory="true"
+        multiple
+        style={{ display: "none" }}
+        onChange={handleFolderUpload}
+      />
+
       {currentRecord && (
         <ItemDetailsCard
           item={currentRecord}
@@ -174,6 +238,6 @@ const SidePanel = () => {
       )}
     </div>
   );
-};
+}
 
 export default SidePanel;

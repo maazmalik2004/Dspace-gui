@@ -1,33 +1,36 @@
 
 .side-panel {
-    width: 15%;
+    width: 20%;
     min-width:20rem;
     
     padding: 1rem;
     
-    border-right: 0.2em solid black;
+    border: 0.2rem solid black;
   
     display: flex;
     flex-direction: column;
     align-items: stretch;
     justify-content: flex-start;
-    gap:1em;
+    gap:1rem;
+
+    border-radius: 0px 5px 5px 0px;
   }
   
   .upload-button {
-    background-color: white;
     padding: 1em;
-    border: 0.2em solid black;
+    border: 0.2rem solid black;
     text-align: center;
     cursor: pointer;
-    transition: background-color 0.3s, border-color 0.3s;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+    border-radius: 15px;
+    font-weight: 500;
   }
   
   .upload-button:hover {
     background-color: #A3E5C4;
     border-color: #0A4028;
+    color:#0A4028;
   }
-  
   
   .logo-container{
     text-align: center;

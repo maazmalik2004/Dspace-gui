@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState } from "react";
 
 export const JobContext = createContext();
 
@@ -16,7 +16,7 @@ export const JobProvider = ({ children }) => {
       )
     );
 
-    if (updates.status === "completed") {
+    if (updates.status === "completed" || updates.status === "failed") {
       setTimeout(() => {
         removeJob(jobId);
       }, 10000);
