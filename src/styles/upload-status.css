@@ -1,0 +1,47 @@
+.upload-status{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap:1em;
+
+    padding: 1rem;
+
+    border: 0.2em solid black;
+}
+
+.progress-bar{
+    height: 1rem;
+    width: 100%;
+
+    background-color: rgb(255, 255, 255);
+    border: 0.2em solid black;
+}
+
+.progress-line{
+    height: 100%;
+    background-color: #86D0FA;
+    border-right: 0.2em solid black;
+}
+
+.cancel-button {
+    background-color: white;
+    padding: 1em;
+    border: 0.2em solid black;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, color 0.3s;
+  }
+  
+  .cancel-button:hover {
+    background-color: #F16B6C;
+    border-color: #840926;
+    color:white;
+  }
+
+  .file-info-and-cancel-button {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+  }

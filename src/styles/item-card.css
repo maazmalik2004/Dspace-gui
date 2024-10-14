@@ -1,0 +1,32 @@
+.item-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    
+    padding: 1rem;
+    
+    width: 100%;
+    max-width: 10%;
+}
+
+.icon img {
+    width: 100%;                
+    height: auto;             
+    max-height:4em;          
+    object-fit: contain;   
+}
+
+.name{
+    width: 100%;
+    word-wrap:break-word;
+    text-align: center;
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.size{
+    margin-top: 0px;
+    margin-bottom: 0px;
+}

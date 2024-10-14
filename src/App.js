@@ -1,25 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import SidePanel from "./components/SidePanel";
+import MainPanel from "./components/MainPanel";
+import UploadStatus from "./components/UploadStatus";
+import { AppStateProvider } from './context/AppStateContext';
 
-function App() {
+const App = () => {
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <AppStateProvider>
+    <div className="container">
+      <SidePanel />
+      <div className="working-area">
+      {/*<UploadStatus uploadedCount="90" totalCount="123" currentFileName="aalugobi.txt" currentFileSize="1024" />*/}
+      <MainPanel/>
+      </div>
     </div>
+    </AppStateProvider>
   );
-}
+};
 
 export default App;
