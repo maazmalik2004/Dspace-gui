@@ -5,7 +5,7 @@ class DspaceClient {
     #serverBaseUrl;
 
     constructor() {
-        this.#serverBaseUrl = "http://localhost:5000";
+        this.#serverBaseUrl = "https://dspace-server.onrender.com";
     }
 
     async upload(files, baseRemotePath) {
