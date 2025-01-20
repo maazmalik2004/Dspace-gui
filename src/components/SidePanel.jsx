@@ -203,7 +203,7 @@ function SidePanel() {
   return (
     <div className="side-panel">
       <div className="logo-container">
-        <h1>ᗡ:\\space</h1>
+        <h1 style={{ color: "#008080" }}>ᗡ:\\space</h1>
       </div>
 
       <label htmlFor="file-upload" className="upload-button">

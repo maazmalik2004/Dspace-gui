@@ -5,7 +5,7 @@ export const AppStateContext = createContext();
 export const AppStateProvider = ({ children }) => {
 
   const [userDirectory, setUserDirectory] = useState(null);
-  const [currentId, setCurrentId] = useState("894440eb-d195-422b-9926-571142b5265c");
+  const [currentId, setCurrentId] = useState("6fe3ff90-4f4e-4c83-ac20-4153c2cf70fa");
   const [currentPath, setCurrentPath] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [historyStack, setHistoryStack] = useState([]);

@@ -81,7 +81,7 @@ const MainPanel = () => {
         >
         <strong>{"<"}</strong>
         </button>
-        <div className="path">
+        <div style={{ color: "#008080" }} className="path">
           {currentPath && currentPath.includes("\\") ? (
             <>
               {currentPath.substring(0, currentPath.lastIndexOf("\\"))}\

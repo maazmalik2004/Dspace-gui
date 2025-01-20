@@ -45,7 +45,15 @@ class DspaceClient {
             form.append("files", file);
 
             const url = `${this.#serverBaseUrl}/upload`;
+            
+            let start = performance.now()
             const response = await axios.post(url, form);
+            let end = performance.now()
+            console.log("Time taken (ms):", end - start);
+
+            // Calculate throughput in Mbps
+            let throughput = (file.size * 8) / ((end - start) / 1000) / 1_000_000;
+            console.log("Calculated throughput (Mbps):", throughput);
 
             if (!response) {
                 throw new Error("Failed to reach server");
@@ -60,7 +68,16 @@ class DspaceClient {
     async retrieve(identifier) {
         try {
             const url = `${this.#serverBaseUrl}/retrieve/${identifier}`;
+            
+            let start = performance.now()
             const response = await fetch(url, { method: 'GET' });
+            const contentLength = parseInt(response.headers.get('content-length'));
+            let end = performance.now()
+            console.log("Time taken (ms):", end - start);
+
+            // Calculate throughput in Mbps
+            let throughput = (contentLength * 8) / ((end - start) / 1000) / 1_000_000;
+            console.log("Calculated throughput (Mbps):", throughput);
     
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
