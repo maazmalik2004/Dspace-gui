@@ -155,7 +155,7 @@ class DspaceClient {
     #serverBaseUrl;
 
     constructor() {
-        this.#serverBaseUrl = "https://dspace.loca.lt/";
+        this.#serverBaseUrl = "https://mas-mpg-clara-restrictions.trycloudflare.com";
 
         // Set default Axios headers globally
         axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
