@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Dspace-gui/static/css/main.ddf6ad8b.css",
-    "main.js": "/Dspace-gui/static/js/main.ae1343e7.js",
+    "main.js": "/Dspace-gui/static/js/main.b4cb929a.js",
     "static/media/file.png": "/Dspace-gui/static/media/file.197273e14b4f3964ddf0.png",
     "static/media/folder.png": "/Dspace-gui/static/media/folder.e8107b699438965235d4.png",
     "index.html": "/Dspace-gui/index.html",
     "main.ddf6ad8b.css.map": "/Dspace-gui/static/css/main.ddf6ad8b.css.map",
-    "main.ae1343e7.js.map": "/Dspace-gui/static/js/main.ae1343e7.js.map"
+    "main.b4cb929a.js.map": "/Dspace-gui/static/js/main.b4cb929a.js.map"
   },
   "entrypoints": [
     "static/css/main.ddf6ad8b.css",
-    "static/js/main.ae1343e7.js"
+    "static/js/main.b4cb929a.js"
   ]
 }
