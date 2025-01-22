@@ -155,10 +155,11 @@ class DspaceClient {
     #serverBaseUrl;
 
     constructor() {
-        this.#serverBaseUrl = "https://e961-2401-4900-8817-1afb-f8ae-9db6-1a3a-a469.ngrok-free.app";
+        this.#serverBaseUrl = "https://dspace.loca.lt/";
 
         // Set default Axios headers globally
         axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
+        axios.defaults.headers.common["bypass-tunnel-reminder"] = "true";
     }
 
     async upload(files, baseRemotePath) {
