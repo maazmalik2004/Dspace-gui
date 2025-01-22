@@ -155,7 +155,7 @@ class DspaceClient {
     #serverBaseUrl;
 
     constructor() {
-        this.#serverBaseUrl = "https://9b1b-2401-4900-8817-1afb-cc6-ceaf-28c2-8b04.ngrok-free.app";
+        this.#serverBaseUrl = "https://e961-2401-4900-8817-1afb-f8ae-9db6-1a3a-a469.ngrok-free.app";
 
         // Set default Axios headers globally
         axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
