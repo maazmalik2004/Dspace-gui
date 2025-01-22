@@ -155,7 +155,7 @@ class DspaceClient {
     #serverBaseUrl;
 
     constructor() {
-        this.#serverBaseUrl = "https://mas-mpg-clara-restrictions.trycloudflare.com";
+        this.#serverBaseUrl = "https://warcraft-deferred-references-newsletters.trycloudflare.com";
 
         // Set default Axios headers globally
         axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";
