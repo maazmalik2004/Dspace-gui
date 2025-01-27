@@ -155,7 +155,7 @@ class DspaceClient {
     #serverBaseUrl;
 
     constructor() {
-        this.#serverBaseUrl = "https://plastic-combo-assembled-boost.trycloudflare.com";
+        this.#serverBaseUrl = "https://dspace.maazmalik2004.space";
 
         // Set default Axios headers globally
         axios.defaults.headers.common["ngrok-skip-browser-warning"] = "true";

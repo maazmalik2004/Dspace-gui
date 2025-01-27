@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import "./App.css";
 import SidePanel from "./components/SidePanel";
 import MainPanel from "./components/MainPanel";
@@ -7,6 +7,9 @@ import { AppStateProvider } from './context/AppStateContext';
 import { JobProvider } from "./context/JobContext";
 
 const App = () => {
+  useEffect(() => {
+    document.title = "Dspace"; // Update the title dynamically
+  }, []);
 
   return (
     <AppStateProvider>
